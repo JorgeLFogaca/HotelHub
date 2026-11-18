@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const pool = require('./database/connection');
+const reservationRoutes = require('./routes/reservationRoutes');
 
 const app = express();
 
@@ -34,6 +35,8 @@ app.get('/db-test', async (req, res) => {
         });
     }
 });
+
+app.use('/reservations', reservationRoutes);
 
 const PORT = process.env.PORT || 3001;
 
