@@ -1,5 +1,6 @@
 
 const reservationService = require('../services/reservationService');
+const { publishReservationCreated } = require('../messaging/reservationPublisher');
 
 async function createReservation(req, res) {
     try {
@@ -60,6 +61,8 @@ async function createReservation(req, res) {
             check_in,
             check_out
         });
+
+        await publishReservationCreated(reservation);
 
         return res.status(201).json(reservation);
 

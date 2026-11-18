@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const pool = require('./database/connection');
 const reservationRoutes = require('./routes/reservationRoutes');
+const { connectRabbitMQ } = require('./messaging/rabbitmq');
 
 const app = express();
 
@@ -40,6 +41,20 @@ app.use('/reservations', reservationRoutes);
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`Reservations rodando na porta ${PORT}`);
-});
+
+async function startServer() {
+    try {
+        await connectRabbitMQ();
+
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error('Erro ao iniciar:', error.message);
+        process.exit(1);
+    }
+}
+
+startServer();
+

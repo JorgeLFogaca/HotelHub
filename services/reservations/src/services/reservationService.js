@@ -58,6 +58,7 @@ async function updateReservationStatus(id, status) {
     return result.rows[0] || null;
 }
 
+
 async function checkAvailability(room_number, check_in, check_out) {
     const query = `
         SELECT EXISTS (
@@ -69,7 +70,18 @@ async function checkAvailability(room_number, check_in, check_out) {
               AND check_out > $2
         ) AS occupied
     `;
+
+    const result = await pool.query(query, [
+        room_number,
+        check_in,
+        check_out
+    ]);
+
+    console.log('Resultado PostgreSQL:', result.rows[0]);
+
+    return !result.rows[0].occupied;
 }
+
 
 module.exports = {
     createReservation,
