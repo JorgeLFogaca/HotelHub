@@ -16,4 +16,16 @@ router.patch(
     reservationController.updateReservationStatus
 );
 
+router.post('/:id/check-in', reservationController.checkin);
+
+router.post(
+    '/digital-key/validate',
+    reservationController.verifyDigitalKey
+);
+
+router.post(
+    '/:id/digital-key',
+    reservationController.createDigitalKey
+);
+
 module.exports = router;
