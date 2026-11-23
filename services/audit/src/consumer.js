@@ -5,6 +5,7 @@ require('dotenv').config({
     path: path.resolve(__dirname, '../.env')
 });
 
+const pool = require('./database/connection');
 const amqp = require('amqplib');
 
 async function startConsumer() {
@@ -40,15 +41,26 @@ async function startConsumer() {
 
         await channel.consume(
             'audit.reservations',
-            (message) => {
+            async (message) => {
                 if (!message) return;
 
                 try {
-                    const event = JSON.parse(
-                        message.content.toString()
-                    );
+                    const event = JSON.parse(message.content.toString());
 
                     console.log('Evento recebido:', event);
+
+                    await pool.query(
+                        `INSERT INTO audit_logs
+                    (event_type, reservation_id, payload)
+                 VALUES ($1, $2, $3)`,
+                        [
+                            event.event,
+                            event.reservationId,
+                            JSON.stringify(event)
+                        ]
+                    );
+
+                    console.log('Evento salvo no PostgreSQL!');
 
                     channel.ack(message);
 
