@@ -77,7 +77,7 @@ async function checkAvailability(room_number, check_in, check_out) {
         check_out
     ]);
 
-    console.log('Resultado PostgreSQL:', result.rows[0]);
+    // console.log('Resultado PostgreSQL:', result.rows[0]);
 
     return !result.rows[0].occupied;
 }

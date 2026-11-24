@@ -27,7 +27,7 @@ async function publishReservationCreated(reservation) {
 
     await channel.waitForConfirms();
 
-    console.log('Evento publicado:', event.event);
+    // console.log('Evento publicado:', event.event);
 }
 
 module.exports = { publishReservationCreated };

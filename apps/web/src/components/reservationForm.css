@@ -1,0 +1,165 @@
+
+/* CAMPOS DE DATA */
+
+.date-picker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.date-picker > label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reservation-form .date-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #03465c;
+
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.reservation-form .date-trigger:hover {
+    background: #f0faff;
+    border-color: #176b87;
+}
+
+.reservation-form .date-trigger:focus-visible {
+    outline: none;
+    border-color: #176b87;
+    box-shadow: 0 0 0 3px rgba(23, 107, 135, 0.15);
+}
+
+.date-trigger svg {
+    color: #176b87;
+}
+
+/* JANELA DO CALENDÁRIO */
+
+.calendar-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+
+    z-index: 100;
+    padding: 14px;
+
+    background: white;
+    border: 1px solid #dbeaf0;
+    border-radius: 14px;
+
+    box-shadow: 0 14px 35px rgba(3, 70, 92, 0.16);
+
+    max-width: calc(100vw - 48px);
+    overflow-x: auto;
+}
+
+/* CORES DO DAYPICKER */
+
+.calendar-popover .rdp-root {
+    --rdp-accent-color: #176b87;
+    --rdp-accent-background-color: #b6e3f5;
+    --rdp-day-width: 38px;
+    --rdp-day-height: 38px;
+    --rdp-day_button-width: 36px;
+    --rdp-day_button-height: 36px;
+    --rdp-day_button-border-radius: 9px;
+    --rdp-selected-border: 0;
+
+    margin: 0;
+    color: #03465c;
+    font-family: inherit;
+}
+
+/* Evitar conflito com os botões globais do Dashboard */
+
+.reservation-form .rdp-root button {
+    background: transparent;
+    color: #03465c;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dias do mês */
+
+.reservation-form .rdp-day_button {
+    border-radius: 9px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.reservation-form .rdp-day_button:hover:not(:disabled) {
+    background: #e0f4fb;
+    transform: scale(1.06);
+}
+
+/* Dia selecionado */
+
+.reservation-form .rdp-selected .rdp-day_button {
+    background: #176b87;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.reservation-form .rdp-selected .rdp-day_button:hover {
+    background: #03465c;
+    color: #ffffff;
+}
+
+/* Dia atual */
+
+.reservation-form .rdp-today:not(.rdp-selected) {
+    color: #176b87;
+    font-weight: 700;
+}
+
+/* Dias indisponíveis */
+
+.reservation-form .rdp-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Cabeçalho e navegação */
+
+.reservation-form .rdp-month_caption {
+    font-weight: 600;
+    color: #03465c;
+}
+
+.reservation-form .rdp-chevron {
+    fill: #176b87;
+}
+
+.reservation-form .rdp-weekday {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* AJUSTE PARA CELULARES */
+
+@media (max-width: 600px) {
+    .calendar-popover {
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+    }
+}

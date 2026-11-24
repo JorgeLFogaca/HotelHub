@@ -41,7 +41,6 @@ function App() {
         carregarReservas();
 
         function conectar() {
-            console.log('WebSocket conectado:', socket.id);
             setWsConectado(true);
 
             // Sincronizar após uma reconexão
